@@ -1,45 +1,45 @@
 let ws;
 
 function connectWebSocket() {
-    // 1/ Create an instance
-    ws = new WebSocket('ws://localhost:3003');
+    ws = new WebSocket('wss://sqlabs-leumi-bank-nodejs-jul24-prod.onrender.com');
 
-    // 2/ Event handing - open, onmessage, onconsole
-    // - Connectionw 
     ws.onopen = () => {
         console.log('Connected to the server');
     };
-    //  - Server sends a message to me
+
     ws.onmessage = (event) => {
-        // Server sends data as a 'blob' - event.data
-        const chat = document.getElementById('chat')
-        const message = document.createElement('div')
+        const chat = document.getElementById('chat');
+        const message = document.createElement('div');
         const reader = new FileReader();
 
-        reader.onload = () => {
-            console.log(reader.result);
+        reader.onload = function() {
             message.textContent = reader.result;
-            chat.appendChild(message)
+            chat.appendChild(message);
         };
-
+    
         if (event.data instanceof Blob) {
             reader.readAsText(event.data);
+        } else {
+            message.textContent = event.data;
+            chat.appendChild(message);
         }
     };
 
-    //  - Connection to server closed
-    ws.onconsole = () => {
-
+    ws.onclose = () => {
+        console.log('Disconnected from the server');
+        setTimeout(connectWebSocket, 1000); // Try to reconnect after 1 second
     };
 }
 
 function sendMessage() {
-    if (ws.readyState === WebSocket.OPEN) {
-        const input = document.getElementById('message');
-        ws.send(input.value);
+    const input = document.getElementById('message');
+    const message = input.value;
 
-        // Cleare the input text
+    if (ws.readyState === WebSocket.OPEN) {
+        ws.send(message);
         input.value = '';
+    } else {
+        console.log('WebSocket is not open. ReadyState: ' + ws.readyState);
     }
 }
 

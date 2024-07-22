@@ -1,18 +1,18 @@
 {
-  "name": "superserver",
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "mr-t-modular-server",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "lib/appServer.js",
   "directories": {
     "lib": "lib"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "author": "",
+  "devDependencies": {},
+  "author": "tomer79sagi",
   "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "ws": "^8.18.0"
-  }
+  "description": ""
 }

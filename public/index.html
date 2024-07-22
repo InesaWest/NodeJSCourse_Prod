@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Static File Server</title>
+    <title>WebSocket Chat</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-
 <body>
-    <h1>Welcome to the Simple Static File Server</h1>
-    <p>This is a simple example of serving static files using Node.js.</p>
-    <img width="300" src="oklock.jpg" alt="Sample Image">
-</body>
+    <h1>WebSocket Chat</h1>
+    <div id="chat"></div>
+    <input id="message" type="text" placeholder="Type a message..." onChange="sendMessage()" />
+    <button onclick="sendMessage()">Send</button>
 
+    <script src="client.js"></script>
+</body>
 </html>
